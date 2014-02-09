@@ -1,0 +1,10 @@
+image: yosssi/go-mongo:1.2-2.4
+env:
+  - GOPATH=/var/cache/drone
+script:
+  - mongod --dbpath /var/lib/mongodb --logpath /var/log/mongodb/mongo.log &
+  - sleep 10
+  - go get labix.org/v2/mgo
+  - go get labix.org/v2/mgo/bson
+  - go build
+  - go test -cover -v
